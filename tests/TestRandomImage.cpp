@@ -6,6 +6,8 @@
 #include <filesystem>
 #include <vector>
 #include <random>
+#include <thread>
+#include <iostream>
 
 void runRandomImageTest()
 {
@@ -39,9 +41,10 @@ void runRandomImageTest()
 
     for(int i=0;i<threads;i++)
     {
-        consumers.emplace_back([&]{
-            Consumer c(queue,img);
-            c.run();
+        consumers.emplace_back([&]
+        {
+          Consumer c(queue, img, i);  
+          c.run();
         });
     }
     prod.join();

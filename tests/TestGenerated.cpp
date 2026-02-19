@@ -2,6 +2,9 @@
 #include "../core/Producer.h"
 #include "../core/Consumer.h"
 #include "../core/BlockingQueue.h"
+#include <vector>
+#include <thread>
+#include <iostream>
 
 void runGeneratedTest()
 {
@@ -16,8 +19,8 @@ void runGeneratedTest()
     {
         consumers.emplace_back([&]
         {
-            Consumer c(queue,img);
-            c.run();
+          Consumer c(queue, img, i);  
+          c.run();
         });
     }
     prod.join();
