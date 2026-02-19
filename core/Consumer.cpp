@@ -8,12 +8,9 @@ void Consumer::run()
 {
     while(true)
     {
-        Task task = queue.pop();
-        if(task.stop)
-        {
-            std::cout << "Consumer "<< id << " stopped" << std::endl;
-            break;
-        }
-        image.invertBlock(task.startRow, task.endRow); //инверсия цвета
+        Task t = queue.pop();
+        if(t.stop) break;
+
+        image.invertBlock(t.startRow,t.endRow);
     }
 }

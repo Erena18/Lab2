@@ -14,18 +14,12 @@ Producer::Producer(
 
 void Producer::run()
 {
-    int height = image.getHeight();
-
-    for(int y = 0; y < height; y += blockSize)
+    for(int y=0;y<image.height();y+=blockSize)
     {
-        int end = std::min(y + blockSize, height);
-
-        queue.push(Task(y, end));
+        int end = std::min(y+blockSize,image.height());
+        queue.push(Task(y,end,false));
     }
 
-    // stop signals
-    for(int i = 0; i < consumerCount; i++)
-    {
-        queue.push(Task::StopTask());
-    }
+    for(int i=0;i<consumerCount;i++)
+        queue.push(Task::Stop());
 }
